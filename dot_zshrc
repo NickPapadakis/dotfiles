@@ -15,3 +15,5 @@ alias rm='rm -i'
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias vim='nvim'
+export VISUAL=nvim
+export EDITOR="$VISUAL"
