@@ -12,14 +12,6 @@ end
 
 local packer_bootstrap = ensure_packer()
 
--- Run :PackerCompile when plugins.lua is updated
--- vim.cmd([[
---	augroup packer_user_config
---		autocmd!
---		autocmd BufWritePost plugins.lua source <afile> | PackerCompile
---	augroup end
---]])
-
 return require('packer').startup(function(use)
   -- Load the package manager
   use 'wbthomason/packer.nvim'
@@ -30,6 +22,31 @@ return require('packer').startup(function(use)
   -- LSP
   use 'neovim/nvim-lspconfig'
   use 'nvim-lua/completion-nvim'
+
+  -- Autocomplete
+  use 'hrsh7th/cmp-nvim-lsp'
+  use 'hrsh7th/cmp-buffer'
+  use 'hrsh7th/cmp-path'
+  use 'hrsh7th/cmp-cmdline'
+  use 'hrsh7th/nvim-cmp'
+  use 'L3MON4D3/LuaSnip'
+  use 'saadparwaiz1/cmp_luasnip'
+
+  -- Terminal integration
+  use 'ojroques/vim-oscyank'
+
+  -- Text editing
+  use 'ntpeters/vim-better-whitespace'
+
+  -- File navigation
+  use {
+    'nvim-telescope/telescope.nvim',
+    requires = { {'nvim-lua/plenary.nvim'} }
+  }
+
+  -- Status bar
+  use 'vim-airline/vim-airline'
+  use 'vim-airline/vim-airline-themes'
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

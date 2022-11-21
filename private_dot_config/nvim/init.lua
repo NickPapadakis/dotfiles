@@ -10,6 +10,13 @@ vim.opt.smarttab = true
 vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
 vim.cmd('colorscheme monokai')
+vim.g.mapleader = ' '
+
+-- oscyank
+vim.g.oscyank_term = 'default' -- make yank work in tmux
+
+-- airline
+vim.g.airline_theme = 'molokai'
 
 ---- START LSP Config ----
 local opts = { noremap=true, silent=true }
@@ -53,4 +60,33 @@ require('lspconfig')['clangd'].setup{
   on_attach = on_attach, 
   flags = lsp_flags,
 }
----- LSP Config ----
+---- END LSP Config ----
+
+-- nvim-cmp
+local cmp = require('cmp')
+cmp.setup({
+    snippet = {
+      -- REQUIRED - you must specify a snippet engine
+      expand = function(args)
+        require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+      end,
+    },
+    mapping = cmp.mapping.preset.insert({
+      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+      ['<C-f>'] = cmp.mapping.scroll_docs(4),
+      ['<C-Space>'] = cmp.mapping.complete(),
+      ['<C-e>'] = cmp.mapping.abort(),
+      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    }),
+    sources = cmp.config.sources({
+      { name = 'nvim_lsp' },
+      { name = 'buffer' },
+    })
+})
+
+-- telescope
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', 'tf', builtin.find_files, {})
+vim.keymap.set('n', 'tg', builtin.live_grep, {})
+vim.keymap.set('n', 'tb', builtin.buffers, {})
+vim.keymap.set('n', 'th', builtin.help_tags, {})
