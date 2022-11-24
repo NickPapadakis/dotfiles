@@ -36,7 +36,8 @@ return require('packer').startup(function(use)
   use 'ojroques/vim-oscyank'
 
   -- Text editing
-  use 'ntpeters/vim-better-whitespace'
+  use 'tpope/vim-sleuth'
+  use 'tpope/vim-surround'
 
   -- File navigation
   use {
